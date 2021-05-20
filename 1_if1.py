@@ -14,12 +14,27 @@
 
 """
 
+
+def occupation(user_age):
+    if user_age <= 0:
+        raise ValueError()
+    elif user_age <= 6:
+        return 'посещаете детский сад'
+    elif user_age <= 18:
+        return 'учитесь в школе'
+    elif user_age <= 65:
+        return 'учитесь в ВУЗе или работаете'
+    else:
+        return 'на пенсии'
+
+
 def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+    try:
+        user_age = int(input('Введите ваш возраст: '))
+        print(f'Ваш возраст {user_age}, предположительно вы {occupation(user_age)}.')
+    except (ValueError, TypeError):
+        print('Возраст введен некоррекно!')
+    
 
 if __name__ == "__main__":
     main()

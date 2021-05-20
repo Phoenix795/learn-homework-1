@@ -13,42 +13,63 @@
 
 """
 import logging
+import ephem
+import settings
+import datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='bot.log')
 
 
 PROXY = {
-    'proxy_url': 'socks5://t1.learn.python.ru:1080',
+    'proxy_url': settings.PROXY_URL,
     'urllib3_proxy_kwargs': {
-        'username': 'learn',
-        'password': 'python'
-    }
+        'username': settings.PROXY_USERNAME, 
+        'password': settings.PROXY_PASSWORD
+        }
 }
+
+
+def constellation(my_planet):
+    try:
+        today = datetime.datetime.now().strftime("%Y/%m/%d")
+        constellation_name = ephem.constellation(getattr(ephem, my_planet)(today))
+        return  f'Планета {my_planet} находится сегодня в созвездии: {constellation_name[1]}'
+    except AttributeError:
+        return 'Неверно введено название планеты'
 
 
 def greet_user(update, context):
     text = 'Вызван /start'
-    print(text)
-    update.message.reply_text(text)
+    logging.info("Команда /start")
+    update.message.reply_text(f'Привет, пользователь: {str(update.message.from_user.username)}! \nУкажите планету по которой хотите получить информацию.')
+
+   
+def planet_info(update, context):
+    text = 'Вызван /planet'
+    logging.info("Команда /planet")
+    my_planet = update.message.text.split()
+    update.message.reply_text(constellation(my_planet[-1]))
 
 
 def talk_to_me(update, context):
     user_text = update.message.text
-    print(user_text)
-    update.message.reply_text(text)
+    logging.info("Зеркальное сообщение")
+    update.message.reply_text(user_text)
 
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY, use_context=True)
+    mybot = Updater(settings.API_KEY, request_kwargs=PROXY, use_context=True)
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", planet_info))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
+    logging.info("Бот стартовал!")
     mybot.start_polling()
     mybot.idle()
 

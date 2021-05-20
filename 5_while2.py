@@ -14,14 +14,27 @@
     Программа: Программирую
     
 """
-
-questions_and_answers = {}
+import datetime
+import os
 
 def ask_user(answers_dict):
-    """
-    Замените pass на ваш код
-    """
-    pass
-    
+    while True:
+      question = input('Пользователь: ')
+      if question in questions_and_answers:
+        print(f'Программа: {questions_and_answers[question]}')
+      else:
+        break
+
+
 if __name__ == "__main__":
+    questions_and_answers = {
+    "Как дела": "Хорошо!", 
+    "Что делаешь?": "Программирую",
+    "Сколько время?": datetime.datetime.now().time(),
+    "День": datetime.datetime.now().date(),
+    "ОС": os.name,
+    "Текущая деректория": os.getcwd(),
+    "Содержимое": '\n'.join(map(str, os.listdir()))
+    }
+    
     ask_user(questions_and_answers)
