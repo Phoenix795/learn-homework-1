@@ -24,19 +24,19 @@ def string_comparison(first_sring, second_string):
       return 1
     elif len(first_sring) > len(second_string):
       return 2
-    elif first_sring != second_string and second_string.strip() == 'learn':
+    elif first_sring != second_string and second_string.strip() == "learn":
       return 3
     else:
       return 'Out of comparison'
 
 
 def main():
-    for test_sting in test_string_list:
-      print('Результат сравнения:', string_comparison(test_sting[0], test_sting[1]))
+    for values in test_string:
+      print('Результат сравнения:', string_comparison(values[0], values[1]))
 
     
 if __name__ == "__main__":
-    test_string_list = [
+    test_string = [
       [5, 'разные'], 
       ['Если строки разные', 'на экран результаты'], 
       ['разные', True], 

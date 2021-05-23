@@ -17,7 +17,7 @@
 
 def occupation(user_age):
     if user_age <= 0:
-        raise ValueError()
+        raise ValueError
     elif user_age <= 6:
         return 'посещаете детский сад'
     elif user_age <= 18:
@@ -31,7 +31,8 @@ def occupation(user_age):
 def main():
     try:
         user_age = int(input('Введите ваш возраст: '))
-        print(f'Ваш возраст {user_age}, предположительно вы {occupation(user_age)}.')
+        answer = occupation(user_age)
+        print(f'Ваш возраст {user_age}, предположительно вы {answer}.')
     except (ValueError, TypeError):
         print('Возраст введен некоррекно!')
     

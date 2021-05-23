@@ -25,34 +25,35 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 
 PROXY = {
-    'proxy_url': settings.PROXY_URL,
+#    'proxy_url': settings.PROXY_URL,
     'urllib3_proxy_kwargs': {
         'username': settings.PROXY_USERNAME, 
         'password': settings.PROXY_PASSWORD
-        }
+    }
 }
 
 
 def constellation(my_planet):
+    today = datetime.datetime.now().strftime("%Y/%m/%d")
     try:
-        today = datetime.datetime.now().strftime("%Y/%m/%d")
-        constellation_name = ephem.constellation(getattr(ephem, my_planet)(today))
-        return  f'Планета {my_planet} находится сегодня в созвездии: {constellation_name[1]}'
+        _, constellation_name = ephem.constellation(getattr(ephem, my_planet)(today))
     except AttributeError:
         return 'Неверно введено название планеты'
+    return  f'Планета {my_planet} находится сегодня в созвездии: {constellation_name}'
+    
 
 
 def greet_user(update, context):
     text = 'Вызван /start'
     logging.info("Команда /start")
-    update.message.reply_text(f'Привет, пользователь: {str(update.message.from_user.username)}! \nУкажите планету по которой хотите получить информацию.')
+    update.message.reply_text(f'Привет, пользователь: {update.message.from_user.username}! \nУкажите планету по которой хотите получить информацию.')
 
    
 def planet_info(update, context):
     text = 'Вызван /planet'
     logging.info("Команда /planet")
-    my_planet = update.message.text.split()
-    update.message.reply_text(constellation(my_planet[-1]))
+    _, my_planet = update.message.text.split()
+    update.message.reply_text(constellation(my_planet))
 
 
 def talk_to_me(update, context):
