@@ -18,9 +18,8 @@ import datetime
 import os
 
 def ask_user(answers_dict):
-    while True:
-      question = input('Пользователь: ')
-      if question in questions_and_answers:
+    while question := input('Пользователь: '):  
+      if question in questions_and_answers.keys():
         print(f'Программа: {questions_and_answers[question]}')
       else:
         break
@@ -28,7 +27,7 @@ def ask_user(answers_dict):
 
 if __name__ == "__main__":
     questions_and_answers = {
-    "Как дела": "Хорошо!", 
+    "Как дела?": "Хорошо!", 
     "Что делаешь?": "Программирую",
     "Сколько время?": datetime.datetime.now().time(),
     "День": datetime.datetime.now().date(),

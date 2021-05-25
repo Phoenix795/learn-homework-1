@@ -24,18 +24,17 @@ def occupation(user_age):
         return 'учитесь в школе'
     elif user_age <= 65:
         return 'учитесь в ВУЗе или работаете'
-    else:
-        return 'на пенсии'
+    return 'на пенсии'
 
 
 def main():
     try:
         user_age = int(input('Введите ваш возраст: '))
-        answer = occupation(user_age)
-        print(f'Ваш возраст {user_age}, предположительно вы {answer}.')
     except (ValueError, TypeError):
         print('Возраст введен некоррекно!')
-    
+    answer = occupation(user_age)
+    print(f'Ваш возраст {user_age}, предположительно вы {answer}.')
 
+    
 if __name__ == "__main__":
     main()

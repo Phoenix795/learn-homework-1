@@ -26,8 +26,7 @@ def string_comparison(first_sring, second_string):
       return 2
     elif first_sring != second_string and second_string.strip() == "learn":
       return 3
-    else:
-      return 'Out of comparison'
+    return 'Out of comparison'
 
 
 def main():

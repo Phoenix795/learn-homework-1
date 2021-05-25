@@ -21,7 +21,7 @@ def rand_scores(quantity, start=2, end=5):
     return list(randint(start, end) for i in range(quantity))
 
 
-def main():
+def main(school):
     common_length = 0
     common_score = 0
     for school_class in school:
@@ -49,4 +49,4 @@ if __name__ == "__main__":
       {'school_class': '9б', 'scores': rand_scores(16)},
     ]
 
-    main()
+    main(school)
