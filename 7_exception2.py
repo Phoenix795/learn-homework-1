@@ -21,10 +21,10 @@ def discounted(price, discount, max_discount=20):
       max_discount = abs(int(max_discount))
     except ValueError:
       print('Невозможно применить приведение типов!')
-      return None
+      return
     except TypeError:
       print('Неверный тип данных!')
-      return None
+      return 
     
     if max_discount > 99:
         print('Слишком большая максимальная скидка!')
